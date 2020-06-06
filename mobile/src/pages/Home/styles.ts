@@ -31,21 +31,14 @@ export default StyleSheet.create({
   footer: {},
 
   select: {
-    height: 60,
+    height: 58,
     backgroundColor: '#fff',
     borderRadius: 10,
     marginBottom: 8,
     paddingHorizontal: 24,
     fontSize: 16,
-  },
-
-  inputAndroid: {
-    height: 60,
-    backgroundColor: '#FFF',
-    borderRadius: 10,
-    marginBottom: 8,
-    paddingHorizontal: 24,
-    fontSize: 16,
+    alignItems: "center",
+    justifyContent: "center"
   },
 
   button: {

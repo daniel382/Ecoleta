@@ -102,19 +102,23 @@ function Home() {
         </Text>
       </View>
 
-      <Select
-        onValueChange={handleSelectedUF}
-        value={selectedUF}
-        placeholder={{ label: "Selecione o estado" }}
-        items={ufList}
-      />
+      <View style={styles.select}>
+        <Select
+          onValueChange={handleSelectedUF}
+          value={selectedUF}
+          placeholder={{ label: "Selecione o estado" }}
+          items={ufList}
+        />
+      </View>
 
-      <Select
-        onValueChange={handleSelectedCity}
-        value={selectedCity}
-        placeholder={{ label: "Seleciona a cidade" }}
-        items={citiesList}
-      />
+      <View style={styles.select}>
+        <Select
+          onValueChange={handleSelectedCity}
+          value={selectedCity}
+          placeholder={{ label: "Seleciona a cidade" }}
+          items={citiesList}
+        />
+      </View>
 
       <View style={styles.footer}>
         <RectButton style={styles.button} onPress={handleNavigateToPoints}>
