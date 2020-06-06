@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, ImageBackground } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { Feather as Icon } from '@expo/vector-icons';
@@ -7,6 +7,7 @@ import Select from 'react-native-picker-select';
 
 import styles from './styles';
 import ibge from '../../services/ibge';
+import Toast from '../../components/Toast';
 
 interface SelectItems {
   label: string;
@@ -27,9 +28,11 @@ function Home() {
 
   const [ufList, setUFList] = useState<SelectItems[]>([]);
   const [citiesList, setCitiesList] = useState<SelectItems[]>([]);
-  
+
   const [selectedUF, setSelectedUF] = useState<string>('0');
   const [selectedCity, setSelectedCity] = useState<string>('0');
+
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(function () {
     ibge.get<IBGEUFResponse[]>('/estados')
@@ -61,16 +64,18 @@ function Home() {
   }, [selectedUF]);
 
   function handleNavigateToPoints() {
-    if (selectedUF === '0' || selectedCity === '0')
+    if (selectedUF === '0' || selectedCity === '0') {
+      setShowToast(true);
       return;
-    
+    }
+
     navigation.navigate('Points', { uf: selectedUF, city: selectedCity });
   }
 
   function handleSelectedUF(uf: string) {
     setSelectedUF(uf);
   }
-  
+
   function handleSelectedCity(city: string) {
     setSelectedCity(city);
   }
@@ -96,7 +101,7 @@ function Home() {
         placeholder={{ label: "Selecione o estado" }}
         items={ufList}
       />
-      
+
       <Select
         onValueChange={handleSelectedCity}
         value={selectedCity}
@@ -115,6 +120,12 @@ function Home() {
           <Text style={styles.buttonText}>Entrar</Text>
         </RectButton>
       </View>
+
+      <Toast
+        show={showToast}
+        message="Selecione estado e cidade..."
+        onAnimationEnd={() => setShowToast(false)}
+      />
     </ImageBackground>
   );
 }
