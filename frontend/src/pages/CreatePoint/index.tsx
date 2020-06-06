@@ -45,7 +45,7 @@ function CreatePoint() {
 
   const [selectedFile, setSelectedFile] = useState<File>();
 
-  // navegação
+  // navigation
   const history = useHistory();
 
   // alerts
@@ -60,10 +60,9 @@ function CreatePoint() {
 
   useEffect(function () {
     ibge.get<IBGEUFResponse[]>('/estados')
-      .then(function (res) {
-        const ufInitials = res.data.map(uf => uf.sigla);
-        setUFList(ufInitials);
-      })
+      .then(res => res.data.map(uf => uf.sigla))
+      .then(ufs => ufs.sort((a, b) => a > b ? 1 : -1))
+      .then(ufs => setUFList(ufs))
   }, [])
 
   // exercutar sempre que 'selectedUF' mudar
@@ -72,10 +71,9 @@ function CreatePoint() {
       return;
 
     ibge.get<IBGECityResponse[]>(`/estados/${selectedUF}/municipios`)
-      .then(function (res) {
-        const cityNames = res.data.map(city => city.nome);
-        setCitiesList(cityNames);
-      })
+      .then(res => res.data.map(city => city.nome))
+      .then(cities => cities.sort((a, b) => a > b ? 1 : -1))
+      .then(cities => setCitiesList(cities))
   }, [selectedUF])
 
   useEffect(function () {
