@@ -108,6 +108,8 @@ function Home() {
           value={selectedUF}
           placeholder={{ label: "Selecione o estado" }}
           items={ufList}
+          Icon={() => <Icon name="chevron-down" size={24} color="#ccc" />}
+          style={{ iconContainer: { top: 12 }}}
         />
       </View>
 
@@ -117,6 +119,8 @@ function Home() {
           value={selectedCity}
           placeholder={{ label: "Seleciona a cidade" }}
           items={citiesList}
+          Icon={() => <Icon name="chevron-down" size={24} color="#ccc" />}
+          style={{ iconContainer: { top: 12 }}}
         />
       </View>
 
