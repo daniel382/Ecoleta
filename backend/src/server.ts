@@ -4,6 +4,7 @@ import { resolve } from 'path';
 import { errors } from 'celebrate';
 
 import routes from './routes';
+import host from './config/host';
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(routes);
 // arquivos estáticos
 app.use('/uploads', express.static(resolve(__dirname, '..', 'uploads')));
 
-app.listen(3333);
+const { addr, port } = host;
+app.listen(port, () => console.log(`Running on http://${addr}:${port}`));
 
 export default app;

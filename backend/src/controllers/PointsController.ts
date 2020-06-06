@@ -1,6 +1,8 @@
 import knex from '../database/connection';
 import { Request, Response } from 'express';
 
+import host from '../config/host';
+
 class PointsController {
   async index(req: Request, res: Response) {
     const { city, uf, items } = req.query;
@@ -18,7 +20,7 @@ class PointsController {
 
     const serializedPoints = points.map(point => ({
       ...point,
-      image_url: `http://192.168.43.216:3333/uploads/${point.image}`
+      image_url: `http://${host.addr}:${host.port}/uploads/${point.image}`
     }));
 
     return res.json(serializedPoints);
@@ -38,7 +40,7 @@ class PointsController {
 
     const serializedPoint = {
       ...point,
-      image_url: `http://192.168.43.216:3333/uploads/${point.image}`
+      image_url: `http://${host.addr}:${host.port}/uploads/${point.image}`
     };
 
     return res.json({ point: serializedPoint, items });
