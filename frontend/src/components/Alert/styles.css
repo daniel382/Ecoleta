@@ -1,0 +1,26 @@
+div.mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  z-index: 1500;
+  background-color: #000000de;
+  align-items: center;
+  justify-content: center;
+}
+
+.mask .box-message {
+  height: 150px;
+  width: 350px;
+  z-index: 1505;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.box-message .message {
+  font-size: 28px;
+}
