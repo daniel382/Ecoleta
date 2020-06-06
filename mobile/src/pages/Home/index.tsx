@@ -51,16 +51,21 @@ function Home() {
 
     ibge.get<IBGECityResponse[]>(`/estados/${selectedUF}/municipios`)
       .then(res => res.data.map(city => ({
-          label: city.nome,
-          value: city.nome,
-          key: city.nome
-        })))
-        .then(cities => cities.sort((a, b) => a.key > b.key ? 1 : -1))
-        .then(cities => setCitiesList(cities))
+        label: city.nome,
+        value: city.nome,
+        key: city.nome
+      })))
+      .then(cities => cities.sort((a, b) => a.key > b.key ? 1 : -1))
+      .then(cities => setCitiesList(cities))
   }, [selectedUF]);
 
   function handleNavigateToPoints() {
-    if (selectedUF === '0' && selectedCity === '0') {
+    if (selectedUF === '0') {
+      setShowToast(true);
+      return;
+    }
+
+    if (selectedCity === '0') {
       setShowToast(true);
       return;
     }
@@ -69,10 +74,16 @@ function Home() {
   }
 
   function handleSelectedUF(uf: string) {
+    if (!uf)
+      uf = '0';
+
     setSelectedUF(uf);
   }
 
   function handleSelectedCity(city: string) {
+    if (!city)
+      city = '0';
+
     setSelectedCity(city);
   }
 
