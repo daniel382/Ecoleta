@@ -11,10 +11,11 @@ const app = express();
 // middlewares
 app.use(express.json());
 app.use(cors());
-app.use(errors());
 
 // routes
 app.use(routes);
+
+app.use(errors());
 
 // arquivos estáticos
 app.use('/uploads', express.static(resolve(__dirname, '..', 'uploads')));

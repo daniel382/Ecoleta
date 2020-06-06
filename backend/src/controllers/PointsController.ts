@@ -51,6 +51,11 @@ class PointsController {
       name, email, whatsapp, latitude, longitude, city, uf, items
     } = req.body;
 
+    if (!req.file)
+      return res.status(400).json({
+        message: 'Image is required. Only images are allowed'
+      });
+
     const point = {
       name,
       email,
