@@ -36,15 +36,13 @@ function Home() {
 
   useEffect(function () {
     ibge.get<IBGEUFResponse[]>('/estados')
-      .then(function (res) {
-        const ufMappedList = res.data.map(uf => ({
-          label: uf.sigla,
-          value: uf.sigla,
-          key: uf.sigla
-        }));
-
-        setUFList(ufMappedList);
-      })
+      .then(res => res.data.map(uf => ({
+        label: uf.sigla,
+        value: uf.sigla,
+        key: uf.sigla
+      })))
+      .then(ufs => ufs.sort((a, b) => a.key > b.key ? 1 : -1))
+      .then(ufs => setUFList(ufs))
   }, []);
 
   useEffect(function () {
@@ -52,19 +50,17 @@ function Home() {
       return;
 
     ibge.get<IBGECityResponse[]>(`/estados/${selectedUF}/municipios`)
-      .then(function (res) {
-        const cityMappedList = res.data.map(city => ({
+      .then(res => res.data.map(city => ({
           label: city.nome,
           value: city.nome,
           key: city.nome
-        }));
-
-        setCitiesList(cityMappedList);
-      })
+        })))
+        .then(cities => cities.sort((a, b) => a.key > b.key ? 1 : -1))
+        .then(cities => setCitiesList(cities))
   }, [selectedUF]);
 
   function handleNavigateToPoints() {
-    if (selectedUF === '0' || selectedCity === '0') {
+    if (selectedUF === '0' && selectedCity === '0') {
       setShowToast(true);
       return;
     }
